@@ -1,0 +1,9 @@
+%syntax-version=1.0.0
+%project=flipr
+%uri=https://github.com/sqitchers/sqitch-intro/
+
+appschema 2022-09-28T11:29:16Z Sargis Yeritsyan <test@example.com> # Add schema for all flipr objects.
+users [appschema] 2022-09-29T09:42:04Z Sargis Yeritsyan <test@example.com> # Creates table to track our users.
+insert_user [users appschema] 2022-09-29T09:44:54Z Sargis Yeritsyan <test@example.com> # Creates a function to insert a user.
+change_pass [users appschema] 2022-09-29T09:45:04Z Sargis Yeritsyan <test@example.com> # Creates a function to change a user password.
+@v1.0.0-dev1 2022-09-29T09:48:20Z Sargis Yeritsyan <test@example.com> # Tag v1.0.0-dev1.
