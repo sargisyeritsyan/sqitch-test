@@ -1,17 +1,17 @@
 name: CI
 
 on:
-  workflow_dispatch:
-    inputs:
-      skip-deploy:
-        type: boolean
-        description: Skip the deploy step
-        required: true
-        default: false
-      environment:
-        type: string
-        description: The environment to deploy to (e.g. sl-qa1)
-        required: true
+#  workflow_dispatch:
+#    inputs:
+#      skip-deploy:
+#        type: boolean
+#        description: Skip the deploy step
+#        required: true
+#        default: false
+#      environment:
+#        type: string
+#        description: The environment to deploy to (e.g. sl-qa1)
+#        required: true
 
   push:
     branches:
