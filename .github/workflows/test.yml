@@ -17,13 +17,13 @@ on:
     branches:
       - "main"
       - "prod"
-#    paths:
-#      - ./**
+    paths:
+      - sqitch/**
 
 env:
-  DOCKER_FILE: ./Dockerfile
-  DOCKER_CTX: .
-  GH_IMAGE: sargisyeritsyan/sqitch-test
+  DOCKER_FILE: ./sqitch/Dockerfile
+  DOCKER_CTX: ./sqitch
+  GH_IMAGE: ghcr.io/steem-monsters/sl-vnext-database
 
 jobs:
   build-image:
@@ -60,6 +60,7 @@ jobs:
           key: ${{ runner.os }}-buildx-db-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-db-
+
 
 
 

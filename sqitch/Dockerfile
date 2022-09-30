@@ -5,6 +5,6 @@ FROM sqitch/sqitch
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY .. .
 
 ENTRYPOINT [ "/usr/src/app/docker-startup.sh" ]
