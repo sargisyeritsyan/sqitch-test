@@ -17,8 +17,8 @@ on:
     branches:
       - "main"
       - "prod"
-    paths:
-      - ./**
+#    paths:
+#      - ./**
 
 env:
   DOCKER_FILE: ./Dockerfile
