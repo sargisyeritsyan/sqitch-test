@@ -108,70 +108,70 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  deploy-image:
-    runs-on: ubuntu-latest
-    needs: [build-image]
-    if: ${{ github.event.inputs.skip-deploy == false || github.event.inputs.skip-deploy == 'false' }}
-
-    steps:
-      # Determine the environment we are deploying to
-      - name: Determine environment
-      - name: Determine environment
-        id: determine-env
-        run: |
-          aws_env_raw=""
-          # use the dispatch input
-          if [ ! -z $DISPATCH_ENVIRONMENT ]
-          then
-            aws_env_raw=$DISPATCH_ENVIRONMENT
-          # main = sl-qa1, prod = prod, env/* = anything after env/
-          elif [[ $WORKFLOW_BRANCH == "${{ github.event.repository.default_branch }}" ]]
-          then
-            aws_env_raw=sl-qa1
-          elif [[ $WORKFLOW_BRANCH == "prod" ]]
-          then
-            aws_env_raw=prod
-          elif [[ $WORKFLOW_BRANCH == env/* ]]
-          then
-            stripped_env="${WORKFLOW_BRANCH//env\//}"
-            aws_env_raw=$stripped_env
-          else
-            echo "Error! Could not determine environment." 1>&2
-            exit 1
-          fi
-
-          # uppercase the env
-          aws_env=${aws_env_raw^^}
-          # replace dash with underscore for accessing the secret
-          # todo, expose a dashed version too?
-          aws_env=${aws_env//-/_}
-
-          echo "AWS Environment: $aws_env"
-          echo "::set-output name=aws-env::$aws_env"
-          echo "::set-output name=aws-env-raw::$aws_env_raw"
-        env:
-          DISPATCH_ENVIRONMENT: ${{ github.event.inputs.environment }}
-          WORKFLOW_BRANCH: ${{ needs.build-image.outputs.branch }}
-
-      - name: Trigger deploy
-        uses: convictional/trigger-workflow-and-wait@v1.6.1
-        with:
-          owner: steem-monsters
-          repo: vnext-infradev
-          github_token: ${{ secrets.SLAPI_PAT }}
-          github_user: slapi-gh
-          workflow_file_name: deploy-db-init-task.yml
-          ref: master
-          wait_interval: 10
-          client_payload: |
-            {
-              "app": "splinterlands",
-              "environment": "${{ steps.determine-env.outputs.aws-env-raw }}",
-              "image": "sl-vnext-database",
-              "image-tag": "${{ needs.build-image.outputs.image_version }}",
-              "ecr": "db-steemmonsters",
-              "ecs-task": "spl-dbinit"
-            }
-          propagate_failure: true
-          trigger_workflow: true
-          wait_workflow: true
+#  deploy-image:
+#    runs-on: ubuntu-latest
+#    needs: [build-image]
+#    if: ${{ github.event.inputs.skip-deploy == false || github.event.inputs.skip-deploy == 'false' }}
+#
+#    steps:
+#      # Determine the environment we are deploying to
+#      - name: Determine environment
+#      - name: Determine environment
+#        id: determine-env
+#        run: |
+#          aws_env_raw=""
+#          # use the dispatch input
+#          if [ ! -z $DISPATCH_ENVIRONMENT ]
+#          then
+#            aws_env_raw=$DISPATCH_ENVIRONMENT
+#          # main = sl-qa1, prod = prod, env/* = anything after env/
+#          elif [[ $WORKFLOW_BRANCH == "${{ github.event.repository.default_branch }}" ]]
+#          then
+#            aws_env_raw=sl-qa1
+#          elif [[ $WORKFLOW_BRANCH == "prod" ]]
+#          then
+#            aws_env_raw=prod
+#          elif [[ $WORKFLOW_BRANCH == env/* ]]
+#          then
+#            stripped_env="${WORKFLOW_BRANCH//env\//}"
+#            aws_env_raw=$stripped_env
+#          else
+#            echo "Error! Could not determine environment." 1>&2
+#            exit 1
+#          fi
+#
+#          # uppercase the env
+#          aws_env=${aws_env_raw^^}
+#          # replace dash with underscore for accessing the secret
+#          # todo, expose a dashed version too?
+#          aws_env=${aws_env//-/_}
+#
+#          echo "AWS Environment: $aws_env"
+#          echo "::set-output name=aws-env::$aws_env"
+#          echo "::set-output name=aws-env-raw::$aws_env_raw"
+#        env:
+#          DISPATCH_ENVIRONMENT: ${{ github.event.inputs.environment }}
+#          WORKFLOW_BRANCH: ${{ needs.build-image.outputs.branch }}
+#
+#      - name: Trigger deploy
+#        uses: convictional/trigger-workflow-and-wait@v1.6.1
+#        with:
+#          owner: steem-monsters
+#          repo: vnext-infradev
+#          github_token: ${{ secrets.SLAPI_PAT }}
+#          github_user: slapi-gh
+#          workflow_file_name: deploy-db-init-task.yml
+#          ref: master
+#          wait_interval: 10
+#          client_payload: |
+#            {
+#              "app": "splinterlands",
+#              "environment": "${{ steps.determine-env.outputs.aws-env-raw }}",
+#              "image": "sl-vnext-database",
+#              "image-tag": "${{ needs.build-image.outputs.image_version }}",
+#              "ecr": "db-steemmonsters",
+#              "ecs-task": "spl-dbinit"
+#            }
+#          propagate_failure: true
+#          trigger_workflow: true
+#          wait_workflow: true
