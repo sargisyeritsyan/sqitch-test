@@ -17,8 +17,8 @@ on:
     branches:
       - "main"
       - "prod"
-    paths:
-      - sqitch/**
+#    paths:
+#      - sqitch/**
 
 env:
   DOCKER_FILE: ./sqitch/Dockerfile
