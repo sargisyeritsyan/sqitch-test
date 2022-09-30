@@ -92,6 +92,7 @@ jobs:
           echo"DOCKER_FILE => ${{ env.DOCKER_FILE }}"
           echo"GH_IMAGE => ${{ env.GH_IMAGE }}"
           echo"VERSION => ${{ env.VERSION }}"
+          
 
       - name: Build Docker Image
         uses: docker/build-push-action@v2
