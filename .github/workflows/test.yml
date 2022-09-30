@@ -84,6 +84,15 @@ jobs:
         env:
           VERSION: ${{ steps.gitversion.outputs.fullSemVer }}
 
+
+      - name: Log
+        id: extract
+        run: |
+          echo"DOCKER_CTX => ${{ env.DOCKER_CTX }}"
+          echo"DOCKER_FILE => ${{ env.DOCKER_FILE }}"
+          echo"GH_IMAGE => ${{ env.GH_IMAGE }}"
+          echo"VERSION => ${{ env.VERSION }}"
+
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
