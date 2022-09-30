@@ -67,7 +67,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: slapi-gh
+          username: sargisyeritsyan
           password: ${{ secrets.SLAPI_PAT }}
 
       - name: Extract version and branch
