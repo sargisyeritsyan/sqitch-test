@@ -85,13 +85,13 @@ jobs:
           VERSION: ${{ steps.gitversion.outputs.fullSemVer }}
 
 
-      - name: Log
-        id: log
-        run: |
-          echo"DOCKER_CTX => ${{ env.DOCKER_CTX }}"
-          echo"DOCKER_FILE => ${{ env.DOCKER_FILE }}"
-          echo"GH_IMAGE => ${{ env.GH_IMAGE }}"
-          echo"VERSION => ${{ env.VERSION }}"
+#      - name: Log
+#        id: log
+#        run: |
+#          echo"DOCKER_CTX => ${{ env.DOCKER_CTX }}"
+#          echo"DOCKER_FILE => ${{ env.DOCKER_FILE }}"
+#          echo"GH_IMAGE => ${{ env.GH_IMAGE }}"
+#          echo"VERSION => ${{ env.VERSION }}"
 #          echo"fullsmever => ${{ steps.gitversion.outputs.fullSemVer }}"
 
       - name: Build Docker Image
