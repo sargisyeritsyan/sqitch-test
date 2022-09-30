@@ -86,7 +86,7 @@ jobs:
 
 
       - name: Log
-        id: extract
+        id: log
         run: |
           echo"DOCKER_CTX => ${{ env.DOCKER_CTX }}"
           echo"DOCKER_FILE => ${{ env.DOCKER_FILE }}"
