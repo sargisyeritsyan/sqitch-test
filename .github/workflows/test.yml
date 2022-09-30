@@ -67,8 +67,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: sargisyeritsyan
-          password: ${{ secrets.SLAPI_PAT }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract version and branch
         id: extract
