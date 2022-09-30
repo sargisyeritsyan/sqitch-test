@@ -1,4 +1,4 @@
-name: SPL - Build and push db-init image
+name: CI
 
 on:
   workflow_dispatch:
